@@ -1,0 +1,20 @@
+diff --git a/node_modules/react-native/scripts/codegen/generate-artifacts-executor/generateRCTThirdPartyComponents.js b/node_modules/react-native/scripts/codegen/generate-artifacts-executor/generateRCTThirdPartyComponents.js
+index d54bd70..99d9cc0 100644
+--- a/node_modules/react-native/scripts/codegen/generate-artifacts-executor/generateRCTThirdPartyComponents.js
++++ b/node_modules/react-native/scripts/codegen/generate-artifacts-executor/generateRCTThirdPartyComponents.js
+@@ -169,11 +169,10 @@ function findFilesWithExtension(
+       return null;
+     }
+ 
+-    // Skip hidden folders, that starts with `.` but allow `.pnpm`
+-    if (
+-      absolutePath.includes(`${path.sep}.`) &&
+-      !absolutePath.includes(`${path.sep}.pnpm`)
+-    ) {
++    // Skip hidden files/folders (starting with `.`) but allow `.pnpm`
++    // Note: Only check the filename, not the entire path, to avoid false positives
++    // when the workspace itself is under a hidden folder (e.g., ~/.jenkins/)
++    if (file.startsWith('.') && file !== '.pnpm') {
+       return null;
+     }
+ 
